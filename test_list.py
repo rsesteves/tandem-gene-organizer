@@ -54,25 +54,25 @@ for elemT in TandClustList:
 
 # known geneIDs
 mrc = [line.strip().split('\t') for line in open('TandemClustID.txt', 'r')]
-known = []
-for g in mrc:
-  print(g)
+outm = []
+for m in mrc:
+  outm.append(m[2])
+  #EX: ['ALY_TD_Cluster_697', 'DEAD-box ATP-dependent RNA helicase, putative, expressed', 'AT3G22310', 'AT3G22330']
 
-# original cluster
-all = []
-for i in TandClustList:
-  if i[0] != mrc:
-print(all)
-
+out1 = '\n'.join(outm)
 # output unknown clusters
-unknown = []
-for i in tcl:
-  if i not in known[0]:
-    unknown.append(i)
+outu = []
+
+for i in TandClustList:
+  if i[0] not in out1:
+    print(i)
+    outu.append(i)
+
+print(outu)
 
 # adding unknown lines into TandemClustID file of interest.
 with open('TandemClustID.txt', 'a') as tf:
-  for i in unknown:
+  for i in outu:
     number += 1
     tandem = '\t'.join(i)
     blank = "."
